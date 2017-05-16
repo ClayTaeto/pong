@@ -24,6 +24,9 @@
     <ClCompile Include="Ball.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup.h">
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="graphics.h">
       <Filter>Source Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

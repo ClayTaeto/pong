@@ -33,16 +33,33 @@ int main(int, char**) {
 		return 1;
 	}	
 
+	//TODO: ugh, I need a new constructor
 	MSprite background("img/background.png", renderer);
 	MSprite pipe("img/pipe.png", renderer);
 	pipe.x = 316;
 	pipe.y = 14;
+	MSprite pong("img/pong.png", renderer);
+	pong.x = 221;
+	pong.y = 77;
 
-	MSprite redCounter("img/0.png", renderer);
+	MSprite start("img/start.png", renderer);
+	start.x = 187;
+	start.y = 349;
+	MSprite red("img/red.png", renderer);
+	red.x = 264;
+	red.y = 108;
+	MSprite blue("img/blue.png", renderer);
+	blue.x = 255;
+	blue.y = 108;
+	MSprite wins("img/wins.png", renderer);
+	wins.x = 232;
+	wins.y = 174;
+
+	ScoreCount redCounter(renderer, &Game::redScore);
 	redCounter.x = 259;
 	redCounter.y = 30;
 
-	MSprite blueCounter("img/0.png", renderer);
+	ScoreCount blueCounter(renderer, &Game::blueScore);
 	blueCounter.x = 335;
 	blueCounter.y = 30;
 
@@ -65,6 +82,8 @@ int main(int, char**) {
 	const Uint8 * keys = SDL_GetKeyboardState(NULL);
 	
 	SDL_Event e;
+	STATE state = STATE_MENU;
+	unsigned int timeWaited = 0, lastTime = 0;
 	bool quit = false;
 	while (!quit) {
 		//Event Polling?
@@ -88,26 +107,70 @@ int main(int, char**) {
 		//Rendering
 		SDL_RenderClear(renderer);
 		
+		switch (state) {
+		case STATE_MENU:
+						
+			background.draw();
+			pong.draw();
+			start.draw();
+			//if keys, then start playing
+			if (keys[SDL_SCANCODE_UP] || keys[SDL_SCANCODE_DOWN] || keys[SDL_SCANCODE_RETURN]) {
+				state = STATE_PLAYING;
+			}
+			break;
+		case STATE_PLAYING:
+			//draw everything			
+			background.draw();
+			pipe.draw();
+			redCounter.draw();
+			blueCounter.draw();
+			paddleBlue.draw();
+			paddleRed.draw();
+			ball.draw();
 
-		//Draw the images
-		background.draw();
-		pipe.draw();
-		redCounter.draw();
-		blueCounter.draw();
-		paddleBlue.draw();
-		paddleRed.draw();
-		ball.draw();
+			ball.move();
+			paddleRed.move();
+			
+			if (keys[SDL_SCANCODE_UP]) {
+				paddleBlue.moveUp();
+			}
 
-		ball.move();
-		paddleRed.move();
-		//dis is better
-		if (keys[SDL_SCANCODE_UP]) {
-			paddleBlue.moveUp();
+			if (keys[SDL_SCANCODE_DOWN]) {
+				paddleBlue.moveDown();
+			}
+
+			//check score
+			if (Game::blueScore > 9 || Game::redScore > 9) {
+				//transition into game over state
+				state = STATE_GAMEOVER;
+				lastTime = SDL_GetTicks();
+			}
+			break;
+		case STATE_GAMEOVER:
+			background.draw();
+			if (Game::blueScore > Game::redScore) {
+				blue.draw();
+				wins.draw();
+			} else {
+				red.draw();
+				wins.draw();
+			}
+			
+			start.draw();
+			//if keys, then start playing
+			timeWaited += SDL_GetTicks() - lastTime;
+			lastTime = SDL_GetTicks();
+			if (timeWaited < 1000) {
+				break;
+			}
+			if (keys[SDL_SCANCODE_UP] || keys[SDL_SCANCODE_DOWN] || keys[SDL_SCANCODE_RETURN]) {
+				state = STATE_PLAYING;
+				Game::reset();
+				timeWaited = 0;
+			}
+			break;
 		}
-
-		if (keys[SDL_SCANCODE_DOWN]) {
-			paddleBlue.moveDown();
-		}
+		
 		
 		//Update the screen
 		SDL_RenderPresent(renderer);
