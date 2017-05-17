@@ -77,8 +77,7 @@ public:
 
 			if (vx > 0) {
 				vx = -5;
-			}
-			else {
+			} else {
 				vx = 5;
 			}
 
@@ -107,8 +106,9 @@ public:
 				if (colliders[i]->y < y + texture_size.h/2 && colliders[i]->y + colliders[i]->texture_size.h > y + texture_size.h/2) {
 					std::cout << "Hit Right Edge "<< vx << "\n";
 					vx *= -1;
+					x = colliders[i]->x + colliders[i]->texture_size.w + 3;
 					hitCounter++;
-				}				
+				}		
 			}
 
 			//Left Edge
@@ -117,6 +117,7 @@ public:
 					std::cout << "Hit Left Edge " << vx << "\n";
 					vx *= -1;
 					hitCounter++;
+					x = colliders[i]->x - texture_size.w - 3;
 					if (vx > 0 && vx < 7) {
 						vx += 1;
 						vy += 1;

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pong", "Snake\Snake.vcxproj", "{F997DAEE-DE71-4A1C-B557-18078023295F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Pong", "Pong\Pong.vcxproj", "{0F3D9FBC-45CB-4B7D-B581-D28B765DE095}"
 EndProject
 Global
@@ -15,14 +13,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Debug|x64.ActiveCfg = Debug|x64
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Debug|x64.Build.0 = Debug|x64
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Debug|x86.ActiveCfg = Debug|Win32
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Debug|x86.Build.0 = Debug|Win32
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Release|x64.ActiveCfg = Release|x64
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Release|x64.Build.0 = Release|x64
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Release|x86.ActiveCfg = Release|Win32
-		{F997DAEE-DE71-4A1C-B557-18078023295F}.Release|x86.Build.0 = Release|Win32
 		{0F3D9FBC-45CB-4B7D-B581-D28B765DE095}.Debug|x64.ActiveCfg = Debug|x64
 		{0F3D9FBC-45CB-4B7D-B581-D28B765DE095}.Debug|x64.Build.0 = Debug|x64
 		{0F3D9FBC-45CB-4B7D-B581-D28B765DE095}.Debug|x86.ActiveCfg = Debug|Win32
